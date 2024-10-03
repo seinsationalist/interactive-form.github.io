@@ -124,7 +124,6 @@ body {
     align-items: center;
     gap: 8px;
     padding: 4px;
-    
     border-radius: 12px;
 }
 
@@ -214,4 +213,10 @@ textarea {
 .clone::after {
     content: attr(data-replicated-value) " ";
     white-space: pre-wrap;
+}
+
+.transition {
+    transform: translateX(50px) !important;
+    transition: all .2s;
+    opacity: 0;
 }

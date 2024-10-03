@@ -19,15 +19,12 @@ function handleInput(e) {
 
 function textTransition(element, content) {
     if (element.textContent === content) return;
-    let prevPos = getComputedStyle(element.parentNode).transform;
-    console.log(prevPos)
-    element.parentNode.style.transform = `translateX(${content.length*10}px)`;
-    element.style.opacity = 0;
+    element.parentNode.classList.add('transition')
+    let transition = document.querySelector('.transition');
+    
     setTimeout(() => {
-        element.textContent = content;
-        
-        element.parentNode.style.transform = prevPos;
-        element.style.opacity = 1;
+        transition.classList.remove('transition');
+        transition.querySelector('p').textContent = content;
     }, 100);
 }
 
@@ -43,6 +40,7 @@ function isInputValid() {
 
         message: form.input.value.length>0
     }
+
 
     switch (form.input.name) {
         case 'name':
