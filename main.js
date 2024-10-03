@@ -10,7 +10,13 @@ const root = document.querySelector(':root'),
 let clone = document.createElement('div'),
     prevIndex,
     inputIndex = 0,
-    valid
+    valid,
+    output = {
+        name: '',
+        email: '',
+        phone: '',
+        message: ''
+    }
 
 function handleInput(e) {
     isInputValid()
@@ -44,6 +50,7 @@ function isInputValid() {
 
     switch (form.input.name) {
         case 'name':
+            output.name = form.input.value;
             form.back.classList.remove('active');
             if (valid.name) {
                 form.dots[0].classList.add('active');
@@ -54,6 +61,7 @@ function isInputValid() {
             }
             break;
         case 'email':
+            output.email = form.input.value;
             form.back.classList.add('active');          
             if (valid.email) {
                 form.dots[1].classList.add('active');
@@ -65,7 +73,7 @@ function isInputValid() {
             }
             break;
         case 'phone':
-
+            output.phone = form.input.value;
             form.next.classList.add('active');
             if (valid.phone) {
                 form.dots[2].classList.add('active');
@@ -76,6 +84,7 @@ function isInputValid() {
             }
             break;
         case 'message':
+            output.message = form.input.value;
             form.next.classList.add('active');
             if (valid.message) {
                 form.dots[3].classList.add('active');
@@ -91,7 +100,7 @@ function isInputValid() {
 function changePage(e, next) {
     
     if (!e.target.classList.contains('active') || (next && inputIndex === 3)) return;
-    form.input.value = '';
+    
     growText('')
     prevIndex = inputIndex;
     next ? inputIndex++ : inputIndex--;
@@ -100,18 +109,22 @@ function changePage(e, next) {
         case 0: 
             form.input.name = "name"
             form.input.placeholder = "Your Name"
+            form.input.value = output.name
             break;
         case 1: 
             form.input.name = "email"
             form.input.placeholder = "Email"
+            form.input.value = output.email
             break;
         case 2: 
             form.input.name = "phone"
             form.input.placeholder = "Phone Number"
+            form.input.value = output.phone
             break;
         case 3: 
             form.input.name = "message"
             form.input.placeholder = "Message (optional)"
+            form.input.value = output.message
             break;
 
     }
