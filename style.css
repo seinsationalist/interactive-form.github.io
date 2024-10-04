@@ -1,8 +1,13 @@
 :root {
     --input-default-height: 60px;
     --input-grow-duration: .2s;
+   
+    --clone: hidden;
 
-    --grow-after-maxHeight: var(--input-default-height);    
+    /* do not modify */
+    --calculated-x: 0;
+    --calculated-y: 0;
+    --grow-after-max-height: var(--input-default-height);    
 }
 
 @font-face {
@@ -55,7 +60,9 @@ body {
 
 .form-dots {
     display: flex;
-    gap: 8px; 
+    gap: 8px;
+    transition: all .2s;
+    z-index: -1;
 }
 
 .form-dots div {
@@ -102,9 +109,16 @@ body {
 .form-input {
     padding: 21px 44px;
     height: 1000px;
-    max-height: var(--grow-after-maxHeight);
+    max-height: var(--grow-after-max-height);
 }
 
+.form-input.active {
+    background: rgba(47, 191, 113, 1);
+    color: #fff;
+    white-space: nowrap;
+    padding-left: 0;
+    padding-right: 0;
+}
 
 .form-input::placeholder {
     opacity: .4;
@@ -118,26 +132,23 @@ body {
 }
 
 .form-btns button {
-    opacity: .4;
     font-size: 16px;
     display: flex;
     align-items: center;
     gap: 8px;
     padding: 4px;
     border-radius: 12px;
-}
-
-.form-btns p {
     transition: all .2s;
 }
 
 .form-btns button * {
     user-select: none;
     pointer-events: none;
+    transition-duration: .2s;
 }
 
 .form-back {
-    transition: opacity .2s;
+    
     opacity: 0;
     visibility: hidden;
 }
@@ -150,18 +161,13 @@ body {
 
 
 .form-next {
-    transition: all .2s;
-    cursor: not-allowed;
+    opacity: .4;
+    cursor: pointer;
     transform: translateX(23px);
-}
-
-.form-next.active {
-    transform: unset;
 }
 
 .form-next span {
     opacity: 0;
-    transition: opacity .2s;
 }
 
 .form-next.active span {
@@ -169,6 +175,7 @@ body {
 }
 
 .form-next.active {
+    transform: unset;
     opacity: 1;
     cursor: pointer;
 }
@@ -207,7 +214,7 @@ textarea {
     border-radius: 12px;
     text-align: center;
     overflow: hidden;
-    visibility: hidden;
+    visibility: var(--clone);
 }
 
 .clone::after {
@@ -216,7 +223,8 @@ textarea {
 }
 
 .transition {
-    transform: translateX(50px) !important;
+    transform: translateX(var(--calculated-x)) translateY(var(--calculated-y)) !important;
     transition: all .2s;
-    opacity: 0;
 }
+
+
